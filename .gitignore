@@ -1,0 +1,30 @@
+# Archivos compilados
+*.o
+*.ppu
+*.or
+*.a
+*.so
+*.dll
+*.exe
+
+# Archivos generados por Lazarus
+*.compiled
+*.lps
+*.bak
+backup/
+lib/
+
+# Ejecutables comunes
+/mineria
+/mineria.exe
+
+# Configuración del sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+Conserva en Git los archivos del proyecto:
+.pas
+.lpr
+.lpi
+.lfm
