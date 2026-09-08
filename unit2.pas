@@ -13,10 +13,13 @@ type
 
   { TForm2 }
 
+
+
   TForm2 = class(TForm)
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    Button4: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
@@ -33,8 +36,10 @@ type
     TrackBar1: TTrackBar;
     TrackBar2: TTrackBar;
     procedure Button1Click(Sender: TObject);
+    procedure suma(s1:real;s2:real);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
@@ -50,6 +55,9 @@ var
   mat: array [0..4, 0..4] of real;
   col, row : integer;
 
+  md : array of array of real; //sin dimensiones
+
+
 implementation
 
 
@@ -57,13 +65,22 @@ implementation
 
 { TForm2 }
 
+procedure tform2.suma(s1:real;s2:real);
+var
+  resul:real;
+begin
+  resul := s1 + s2;
+  Edit3.Text := floatToStr(S1 + S2)
+end;
+
 procedure TForm2.Button1Click(Sender: TObject);
 var
-  S1, S2: Integer;
+  S1, S2: real;
 begin
-  if TryStrToInt(Edit1.Text, S1) and
-     TryStrToInt(Edit2.Text, S2) then
-    Edit3.Text := IntToStr(S1 + S2)
+  if TryStrTofloat(Edit1.Text, S1) and
+     TryStrTofloat(Edit2.Text, S2) then
+      suma(s1,s2)
+
   else
     ShowMessage('Enter valid integers.');
 end;
@@ -91,6 +108,25 @@ begin
        stringgrid1.cells[i,j]:=floattostr(mat[i,j]);
      end;
    end;
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+var
+  i,j: integer;
+begin
+  setlength(md,col,row); //asignar dimenciones a md
+  randomize();
+
+  for i:= 0 to col-1 do begin
+     for j:= 0 to row-1 do begin
+       //asignar valor a md
+
+       md[i,j] := random(100)*1.5;
+       //visualizar en stringGrid
+       stringgrid2.cells[i,j]:=floattostr(md[i,j]);
+     end;
+   end;
+
 end;
 
 
