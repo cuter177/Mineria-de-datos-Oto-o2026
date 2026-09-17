@@ -1,0 +1,66 @@
+object Form1: TForm1
+  Left = 375
+  Height = 324
+  Top = 34
+  Width = 808
+  Caption = 'Form1'
+  ClientHeight = 290
+  ClientWidth = 808
+  Menu = MainMenu1
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  object StringGrid1: TStringGrid
+    Left = 224
+    Height = 212
+    Top = 32
+    Width = 360
+    TabOrder = 0
+  end
+  object GroupBox1: TGroupBox
+    Left = 592
+    Height = 184
+    Top = 64
+    Width = 185
+    Caption = 'GroupBox1'
+    ClientHeight = 152
+    ClientWidth = 181
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 8
+      Height = 22
+      Top = 24
+      Width = 106
+      Caption = 'row count: '
+    end
+    object Label2: TLabel
+      Left = 8
+      Height = 22
+      Top = 72
+      Width = 106
+      Caption = 'col count: '
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 80
+    Top = 160
+  end
+  object MainMenu1: TMainMenu
+    Left = 72
+    Top = 56
+    object MenuItem1: TMenuItem
+      Caption = 'archivo'
+      object MenuItem2: TMenuItem
+        Caption = 'abrir'
+        OnClick = MenuItem2Click
+        object MenuItem3: TMenuItem
+          Caption = 'guardar'
+          OnClick = MenuItem3Click
+        end
+      end
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 72
+    Top = 232
+  end
+end
