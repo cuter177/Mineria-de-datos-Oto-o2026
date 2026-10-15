@@ -15,10 +15,24 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    ComboBox1: TComboBox;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
 
   public
@@ -27,12 +41,15 @@ type
 
 var
   Form1: TForm1;
+  cont: integer;
 
 implementation
+ uses unit2;
 
 {$R *.lfm}
 
 { TForm1 }
+
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -82,6 +99,25 @@ begin
      y:=random(70)*50;
      Chart1LineSeries1.addxy(x,y);
   end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  Form2.showmodal;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  if checkbox1.checked then
+  begin
+    showMessage('se eligio checkbox 1');
+  end;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  comboBox1.items.add('Opcion ' + inttoStr(cont));
+  cont := cont + 1;
 end;
 
 end.

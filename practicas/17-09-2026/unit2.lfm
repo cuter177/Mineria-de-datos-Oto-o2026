@@ -1,0 +1,34 @@
+object Form2: TForm2
+  Left = 375
+  Height = 240
+  Top = 34
+  Width = 320
+  Caption = 'Form2'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.8.0.0'
+  object TrackBar1: TTrackBar
+    Left = 112
+    Height = 25
+    Top = 64
+    Width = 100
+    Position = 0
+    TabOrder = 0
+  end
+  object BitBtn1: TBitBtn
+    Left = 48
+    Height = 30
+    Top = 152
+    Width = 75
+    Caption = 'ok'
+    TabOrder = 1
+  end
+  object BitBtn2: TBitBtn
+    Left = 168
+    Height = 30
+    Top = 152
+    Width = 75
+    Caption = 'false'
+    TabOrder = 2
+  end
+end

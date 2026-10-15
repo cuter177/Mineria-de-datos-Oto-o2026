@@ -1,11 +1,11 @@
 object Form1: TForm1
   Left = 375
-  Height = 387
+  Height = 523
   Top = 34
-  Width = 766
+  Width = 933
   Caption = 'Form1'
-  ClientHeight = 387
-  ClientWidth = 766
+  ClientHeight = 523
+  ClientWidth = 933
   LCLVersion = '4.8.0.0'
   object Chart1: TChart
     Left = 208
@@ -48,5 +48,106 @@ object Form1: TForm1
     Caption = 'Button2'
     TabOrder = 2
     OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 72
+    Height = 25
+    Top = 312
+    Width = 75
+    Caption = 'llamar form 2'
+    TabOrder = 3
+    OnClick = Button3Click
+  end
+  object GroupBox1: TGroupBox
+    Left = 600
+    Height = 169
+    Top = 40
+    Width = 185
+    Caption = 'GroupBox1'
+    ClientHeight = 137
+    ClientWidth = 181
+    TabOrder = 4
+    object CheckBox1: TCheckBox
+      Left = 16
+      Height = 26
+      Top = 8
+      Width = 111
+      Caption = 'CheckBox1'
+      TabOrder = 0
+    end
+    object CheckBox2: TCheckBox
+      Left = 16
+      Height = 26
+      Top = 48
+      Width = 111
+      Caption = 'CheckBox2'
+      TabOrder = 1
+    end
+    object CheckBox3: TCheckBox
+      Left = 16
+      Height = 26
+      Top = 88
+      Width = 111
+      Caption = 'CheckBox3'
+      TabOrder = 2
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 600
+    Height = 105
+    Top = 224
+    Width = 185
+    Caption = 'GroupBox2'
+    ClientHeight = 73
+    ClientWidth = 181
+    TabOrder = 5
+    object RadioButton1: TRadioButton
+      Left = 16
+      Height = 26
+      Top = 0
+      Width = 140
+      Caption = 'RadioButton1'
+      TabOrder = 0
+    end
+    object RadioButton2: TRadioButton
+      Left = 16
+      Height = 26
+      Top = 32
+      Width = 140
+      Caption = 'RadioButton2'
+      TabOrder = 1
+    end
+  end
+  object Button4: TButton
+    Left = 600
+    Height = 25
+    Top = 368
+    Width = 75
+    Caption = 'accion'
+    TabOrder = 6
+    OnClick = Button4Click
+  end
+  object ComboBox1: TComboBox
+    Left = 264
+    Height = 36
+    Top = 304
+    Width = 100
+    ItemHeight = 29
+    Items.Strings = (
+      'opcion1'
+      'op2'
+    )
+    TabOrder = 7
+    Text = 'ComboBox1'
+    OnChange = ComboBox1Change
+  end
+  object Button5: TButton
+    Left = 633
+    Height = 25
+    Top = 428
+    Width = 75
+    Caption = 'Button5'
+    TabOrder = 8
+    OnClick = Button5Click
   end
 end
