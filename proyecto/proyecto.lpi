@@ -35,6 +35,7 @@
       <Unit>
         <Filename Value="proyecto.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ProyectoApp"/>
       </Unit>
       <Unit>
         <Filename Value="Unit1.pas"/>
@@ -42,6 +43,11 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit>
+      <Unit>
+        <Filename Value="udatos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uDatos"/>
       </Unit>
     </Units>
   </ProjectOptions>

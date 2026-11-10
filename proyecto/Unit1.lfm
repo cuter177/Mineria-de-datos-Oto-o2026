@@ -1,27 +1,27 @@
 object Form1: TForm1
   Left = 404
-  Height = 408
+  Height = 906
   Top = 204
-  Width = 931
+  Width = 1274
   Caption = 'Archivos ,...,...,...,'
-  ClientHeight = 374
-  ClientWidth = 931
+  ClientHeight = 872
+  ClientWidth = 1274
   Menu = MainMenu1
   LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
   object PageControl1: TPageControl
     Left = 0
-    Height = 374
+    Height = 872
     Top = 0
-    Width = 931
-    ActivePage = TabSheet1
+    Width = 1274
+    ActivePage = TabSheet5
     Align = alClient
-    TabIndex = 0
+    TabIndex = 4
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Datos / Normalizacion'
-      ClientHeight = 339
-      ClientWidth = 925
+      ClientHeight = 837
+      ClientWidth = 1268
       object StringGrid1: TStringGrid
         Left = -3
         Height = 280
@@ -32,11 +32,11 @@ object Form1: TForm1
       object Panel1: TPanel
         Left = 0
         Height = 50
-        Top = 289
-        Width = 925
+        Top = 787
+        Width = 1268
         Align = alBottom
         ClientHeight = 50
-        ClientWidth = 925
+        ClientWidth = 1268
         TabOrder = 1
         object Label8: TLabel
           Left = 8
@@ -88,9 +88,9 @@ object Form1: TForm1
         end
       end
       object GroupBox1: TGroupBox
-        Left = 712
+        Left = 720
         Height = 177
-        Top = 72
+        Top = 96
         Width = 209
         Caption = 'GroupBox1'
         ClientHeight = 145
@@ -128,13 +128,13 @@ object Form1: TForm1
     end
     object TabSheet2: TTabSheet
       Caption = 'Estadisticas'
-      ClientHeight = 339
-      ClientWidth = 925
+      ClientHeight = 837
+      ClientWidth = 1268
       object StringGrid2: TStringGrid
         Left = 0
-        Height = 339
+        Height = 837
         Top = 0
-        Width = 925
+        Width = 1268
         Align = alClient
         ColCount = 7
         FixedCols = 0
@@ -194,11 +194,11 @@ object Form1: TForm1
     end
     object TabSheet3: TTabSheet
       Caption = 'Coorelacion / Dispersion'
-      ClientHeight = 339
-      ClientWidth = 925
+      ClientHeight = 837
+      ClientWidth = 1268
       object ListBox1: TListBox
         Left = 0
-        Height = 267
+        Height = 765
         Top = 72
         Width = 240
         Align = alLeft
@@ -210,10 +210,10 @@ object Form1: TForm1
         Left = 0
         Height = 72
         Top = 0
-        Width = 925
+        Width = 1268
         Align = alTop
         ClientHeight = 72
-        ClientWidth = 925
+        ClientWidth = 1268
         TabOrder = 1
         object Label5: TLabel
           Left = 256
@@ -293,16 +293,16 @@ object Form1: TForm1
     end
     object TabSheet4: TTabSheet
       Caption = 'Color'
-      ClientHeight = 339
-      ClientWidth = 925
+      ClientHeight = 837
+      ClientWidth = 1268
       object Panel4: TPanel
         Left = 0
         Height = 50
         Top = 0
-        Width = 925
+        Width = 1268
         Align = alTop
         ClientHeight = 50
-        ClientWidth = 925
+        ClientWidth = 1268
         TabOrder = 0
         object Button6: TButton
           Left = 16
@@ -323,9 +323,9 @@ object Form1: TForm1
       end
       object Chart1: TChart
         Left = 0
-        Height = 289
+        Height = 787
         Top = 50
-        Width = 925
+        Width = 1268
         AxisList = <        
           item
             Marks.LabelBrush.Style = bsClear
@@ -347,19 +347,222 @@ object Form1: TForm1
         end
       end
     end
+    object TabSheet5: TTabSheet
+      Caption = 'Clasificador'
+      ClientHeight = 837
+      ClientWidth = 1268
+      object Label11: TLabel
+        Left = 8
+        Height = 22
+        Top = 56
+        Width = 116
+        Caption = 'Valor de K: '
+      end
+      object Edit3: TEdit
+        Left = 120
+        Height = 35
+        Top = 48
+        Width = 80
+        TabOrder = 0
+      end
+      object ComboBox3: TComboBox
+        Left = 328
+        Height = 36
+        Top = 48
+        Width = 100
+        ItemHeight = 35
+        TabOrder = 1
+        Text = 'ComboBox3'
+      end
+      object Label12: TLabel
+        Left = 272
+        Height = 22
+        Top = 56
+        Width = 48
+        Caption = 'Voto:'
+      end
+      object Button7: TButton
+        Left = 96
+        Height = 25
+        Top = 104
+        Width = 328
+        Caption = 'Seleccionar Atributos Relevantes'
+        TabOrder = 2
+        OnClick = Button7Click
+      end
+      object Label13: TLabel
+        Left = 8
+        Height = 22
+        Top = 160
+        Width = 164
+        Caption = 'Atributos usados:'
+      end
+      object Label14: TLabel
+        Left = 8
+        Height = 26
+        Top = 8
+        Width = 319
+        Caption = 'PARÁMETROS DEL CLASIFICADOR '
+        Font.Height = -19
+        Font.Name = 'JetBrainsMonoNL Nerd Font Mono'
+        ParentFont = False
+      end
+      object Label15: TLabel
+        Left = 8
+        Height = 26
+        Top = 200
+        Width = 92
+        Caption = 'ACCIONES'
+        Font.Height = -19
+        Font.Name = 'JetBrainsMonoNL Nerd Font Mono'
+        ParentFont = False
+      end
+      object Button8: TButton
+        Left = 8
+        Height = 25
+        Top = 240
+        Width = 216
+        Caption = 'Clasificar con todos'
+        TabOrder = 3
+        OnClick = Button8Click
+      end
+      object Button9: TButton
+        Left = 256
+        Height = 25
+        Top = 240
+        Width = 248
+        Caption = 'Clasificar con Relevantes'
+        TabOrder = 4
+        OnClick = Button9Click
+      end
+      object Button10: TButton
+        Left = 536
+        Height = 25
+        Top = 240
+        Width = 96
+        Caption = 'Comparar'
+        TabOrder = 5
+        OnClick = Button10Click
+      end
+      object Label16: TLabel
+        Left = 8
+        Height = 26
+        Top = 288
+        Width = 331
+        Caption = 'RESULTADOS POR INSTANCIA DE P'
+        Font.Height = -19
+        Font.Name = 'JetBrainsMonoNL Nerd Font Mono'
+        ParentFont = False
+      end
+      object StringGrid3: TStringGrid
+        Left = 8
+        Height = 184
+        Top = 328
+        Width = 728
+        TabOrder = 6
+        ColWidths = (
+          64
+          150
+          192
+          111
+          190
+        )
+        Cells = (
+          5
+          0
+          0
+          '#P'
+          1
+          0
+          'Clase Predicha'
+          2
+          0
+          'Clase predicha rel.'
+          3
+          0
+          'Coinciden'
+          4
+          0
+          ' Vecinos/similitud'
+        )
+      end
+      object Label17: TLabel
+        Left = 8
+        Height = 26
+        Top = 528
+        Width = 228
+        Caption = 'RESUMEN DE EXACTITUD'
+        Font.Height = -19
+        Font.Name = 'JetBrainsMonoNL Nerd Font Mono'
+        ParentFont = False
+      end
+      object Label18: TLabel
+        Left = 8
+        Height = 22
+        Top = 568
+        Width = 298
+        Caption = 'Exactitud estimada en T, todos:'
+      end
+      object Label19: TLabel
+        Left = 8
+        Height = 22
+        Top = 608
+        Width = 346
+        Caption = 'Exactitud estimada en T, relevantes:'
+      end
+      object Label20: TLabel
+        Left = 8
+        Height = 22
+        Top = 648
+        Width = 106
+        Caption = 'Diferencia:'
+      end
+      object Label21: TLabel
+        Left = 8
+        Height = 22
+        Top = 696
+        Width = 250
+        Caption = 'LOG / RANKING DE ATRIBUTOS'
+      end
+      object Memo1: TMemo
+        Left = 0
+        Height = 90
+        Top = 747
+        Width = 1268
+        Align = alBottom
+        Lines.Strings = (
+          'Memo1'
+        )
+        TabOrder = 7
+      end
+    end
+  end
+  object Label10: TLabel
+    Left = 8
+    Height = 22
+    Top = 8
+    Width = 68
+    Caption = 'Label10'
   end
   object MainMenu1: TMainMenu
-    Left = 568
-    Top = 65480
+    Left = 544
+    Top = 65488
     object MenuItem1: TMenuItem
       Caption = 'Archivo'
       object MenuItem2: TMenuItem
-        Caption = 'Abrir'
+        Caption = 'Abrir Entrenamiento'
         OnClick = MenuItem2Click
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Abrir Prueba'
+        OnClick = MenuItem4Click
       end
       object MenuItem3: TMenuItem
         Caption = 'Guardar'
         OnClick = MenuItem3Click
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Guardar Resultados'
       end
     end
   end
@@ -371,5 +574,14 @@ object Form1: TForm1
   object SaveDialog1: TSaveDialog
     Left = 792
     Top = 65480
+  end
+  object OpenDialog2: TOpenDialog
+    Filter = '*.csv, *.txt|*.csv;*.txt'
+    Left = 448
+    Top = 65488
+  end
+  object SaveDialog2: TSaveDialog
+    Left = 328
+    Top = 65488
   end
 end

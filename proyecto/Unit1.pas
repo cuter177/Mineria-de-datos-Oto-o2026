@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Grids, Menus, StdCtrls,
-  ComCtrls, ExtCtrls, TAGraph, TASeries, TATypes, TAFuncSeries, TAColorMap;
+  ComCtrls, ExtCtrls, TAGraph, TASeries, TATypes, TAFuncSeries, TAColorMap, uDatos;
 
 type
   TFloatArray = array of real;
@@ -19,21 +19,39 @@ end;
 
   TForm1 = class(TForm)
     Button1: TButton;
+    Button10: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
     Chart1: TChart;
     Chart1ColorMapSeries1: TColorMapSeries;
     Chart2: TChart;
     ComboBox1: TComboBox;
     ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
     Edit1: TEdit;
     Edit2: TEdit;
+    Edit3: TEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
     Label2: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -43,33 +61,45 @@ end;
     Label9: TLabel;
     ListBox1: TListBox;
     MainMenu1: TMainMenu;
+    Memo1: TMemo;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     OpenDialog1: TOpenDialog;
+    OpenDialog2: TOpenDialog;
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
     SaveDialog1: TSaveDialog;
+    SaveDialog2: TSaveDialog;
     StringGrid1: TStringGrid;
     StringGrid2: TStringGrid;
+    StringGrid3: TStringGrid;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    procedure Button10Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Label5Click(Sender: TObject);
 
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
     procedure RefrescarCombos;
     procedure ComboChange(Sender: TObject);
     procedure Chart1ColorMapSeries1Calculate(const AX, AY: Double; out AZ: Double);
@@ -354,6 +384,11 @@ begin
     RobustColumna(StringGrid1, col);
 end;
 
+procedure TForm1.Button10Click(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.Button2Click(Sender: TObject);
 var
   col: Integer;
@@ -567,6 +602,21 @@ begin
   Chart1.Invalidate;
 end;
 
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Button8Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Button9Click(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.Chart1ColorMapSeries1Calculate(const AX, AY: Double; out AZ: Double);
 var
   col, row : Integer;
@@ -692,6 +742,18 @@ procedure TForm1.MenuItem3Click(Sender: TObject);
 begin
   if SaveDialog1.Execute then
     StringGrid1.SaveToCSVFile(SaveDialog1.FileName);
+end;
+
+procedure TForm1.MenuItem4Click(Sender: TObject);
+begin
+  if OpenDialog2.Execute then
+  begin
+    StringGrid1.LoadFromCSVFile(OpenDialog2.FileName);
+    Label3.Caption := IntToStr(StringGrid1.RowCount);
+    Label4.Caption := IntToStr(StringGrid1.ColCount);
+    RefrescarCombos;
+  end;
+
 end;
 
 
