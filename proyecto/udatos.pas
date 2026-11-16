@@ -15,6 +15,13 @@ type
     Min: Double;
     Max: Double;
     Cardinalidad: Integer;
+    // Para atributos nominales: valores distintos observados en T y, para
+    // cada uno, la distribucion P(c|valor) sobre las clases. Priori es la
+    // distribucion global P(c) y se usa como respaldo si aparece un valor
+    // nominal no visto en entrenamiento.
+    Valores: array of Double;
+    ProbCond: array of array of Double;
+    Priori: array of Double;
   end;
 
   TConjuntoDatos = class
@@ -37,13 +44,14 @@ type
 
     function Cargar(const Ruta: string; ArchConClase: Boolean; NumAtributos: Integer; out Mensaje: string): Boolean;
     procedure CalcularRangos;
+    procedure CalcularTablasNominales;
     procedure AplicarEsquema(const Fuente: TConjuntoDatos);
   end;
 
-function SimilitudAtributo(const Info: TInfoAtributo;
+function DistanciaAtributo(const Info: TInfoAtributo;
   ValorA, ValorB: Double): Double;
 
-function SimilitudEntre(const A: TConjuntoDatos; FilaA: Integer;
+function DistanciaEntre(const A: TConjuntoDatos; FilaA: Integer;
   const B: TConjuntoDatos; FilaB: Integer;
   const AtributosUsados: array of Integer): Double;
 
@@ -265,6 +273,109 @@ begin
     end;
 end;
 
+procedure TConjuntoDatos.CalcularTablasNominales;
+var
+  i, j, c, v, n, nValores, MaxClase: Integer;
+  Valor: Double;
+  Encontrado: Boolean;
+  ConteoClase, ConteoValor: array of Integer;
+  ConteoValorClase: array of array of Integer;
+begin
+  if (Filas = 0) or not TieneClase then
+    Exit;
+
+  MaxClase := -1;
+  for i := 0 to Filas - 1 do
+    if Clases[i] > MaxClase then
+      MaxClase := Clases[i];
+
+  if MaxClase < 0 then
+    Exit;
+
+  SetLength(ConteoClase, MaxClase + 1);
+  for c := 0 to MaxClase do
+    ConteoClase[c] := 0;
+  for i := 0 to Filas - 1 do
+    if (Clases[i] >= 0) and (Clases[i] <= MaxClase) then
+      Inc(ConteoClase[Clases[i]]);
+
+  for j := 0 to Columnas - 1 do
+  begin
+    if Info[j].Tipo <> taNominal then
+      Continue;
+
+    SetLength(Info[j].Priori, MaxClase + 1);
+    for c := 0 to MaxClase do
+      if Filas > 0 then
+        Info[j].Priori[c] := ConteoClase[c] / Filas
+      else
+        Info[j].Priori[c] := 0.0;
+
+    // Valores nominales distintos observados en T.
+    nValores := 0;
+    SetLength(Info[j].Valores, 0);
+    for i := 0 to Filas - 1 do
+    begin
+      if IsNan(Datos[i][j]) then
+        Continue;
+
+      Valor := Datos[i][j];
+      Encontrado := False;
+      for v := 0 to nValores - 1 do
+        if Info[j].Valores[v] = Valor then
+        begin
+          Encontrado := True;
+          Break;
+        end;
+
+      if not Encontrado then
+      begin
+        SetLength(Info[j].Valores, nValores + 1);
+        Info[j].Valores[nValores] := Valor;
+        Inc(nValores);
+      end;
+    end;
+
+    // Conteo por valor y por clase, luego P(c|valor).
+    SetLength(Info[j].ProbCond, nValores);
+    SetLength(ConteoValor, nValores);
+    SetLength(ConteoValorClase, nValores);
+    for v := 0 to nValores - 1 do
+    begin
+      ConteoValor[v] := 0;
+      SetLength(Info[j].ProbCond[v], MaxClase + 1);
+      SetLength(ConteoValorClase[v], MaxClase + 1);
+      for c := 0 to MaxClase do
+        ConteoValorClase[v][c] := 0;
+    end;
+
+    for i := 0 to Filas - 1 do
+    begin
+      if IsNan(Datos[i][j]) then
+        Continue;
+      Valor := Datos[i][j];
+      for v := 0 to nValores - 1 do
+        if Info[j].Valores[v] = Valor then
+        begin
+          Inc(ConteoValor[v]);
+          if (Clases[i] >= 0) and (Clases[i] <= MaxClase) then
+            Inc(ConteoValorClase[v][Clases[i]]);
+          Break;
+        end;
+    end;
+
+    for v := 0 to nValores - 1 do
+    begin
+      n := ConteoValor[v];
+      for c := 0 to MaxClase do
+        if n > 0 then
+          Info[j].ProbCond[v][c] := ConteoValorClase[v][c] / n
+        else
+          Info[j].ProbCond[v][c] := Info[j].Priori[c];
+    end;
+  end;
+end;
+
 procedure TConjuntoDatos.AplicarEsquema(const Fuente: TConjuntoDatos);
 var
   j: Integer;
@@ -279,38 +390,84 @@ begin
     Info[j] := Fuente.Info[j];
 end;
 
-function SimilitudAtributo(const Info: TInfoAtributo;
-  ValorA, ValorB: Double): Double;
+procedure ContarClases(const T: TConjuntoDatos; var Conteo: array of Integer);
 var
-  Rango: Double;
+  i, c: Integer;
 begin
-  if Info.Tipo = taNominal then
-  begin
-    if ValorA = ValorB then
-      Result := 1.0
-    else
-      Result := 0.0;
+  for c := 0 to High(Conteo) do
+    Conteo[c] := 0;
+
+  if (T = nil) or not T.TieneClase then
     Exit;
-  end;
 
-  Rango := Info.Max - Info.Min;
-
-  if Rango <= 0 then
+  for i := 0 to T.Filas - 1 do
   begin
-    if ValorA = ValorB then
-      Result := 1.0
-    else
-      Result := 0.0;
-    Exit;
+    c := T.Clases[i];
+    if (c >= 0) and (c <= High(Conteo)) then
+      Inc(Conteo[c]);
   end;
-
-  Result := 1.0 - Abs(ValorA - ValorB) / Rango;
-
-  if Result < 0.0 then
-    Result := 0.0;
 end;
 
-function SimilitudEntre(const A: TConjuntoDatos; FilaA: Integer;
+function BuscarValorNominal(const Info: TInfoAtributo; Valor: Double): Integer;
+var
+  v: Integer;
+begin
+  for v := 0 to High(Info.Valores) do
+    if Info.Valores[v] = Valor then
+      Exit(v);
+  Result := -1;
+end;
+
+function DistanciaAtributo(const Info: TInfoAtributo;
+  ValorA, ValorB: Double): Double;
+var
+  c, idxA, idxB: Integer;
+  ProbA, ProbB: Double;
+begin
+  // Si falta cualquiera de los dos valores, la distancia es 1.
+  if IsNan(ValorA) or IsNan(ValorB) then
+    Exit(1.0);
+
+  if Info.Tipo = taNumerico then
+  begin
+    // |a-b| / (|a|+|b|), con el caso especial a=b=0.
+    if (ValorA = 0.0) and (ValorB = 0.0) then
+      Exit(0.0);
+    Exit(Abs(ValorA - ValorB) / (Abs(ValorA) + Abs(ValorB)));
+  end;
+
+  // Distancia nominal: suma sobre clases de |P(c|a)-P(c|b)|.
+  // Si no se construyeron las tablas (sin clases de entrenamiento), se usa
+  // igualdad como respaldo.
+  if Length(Info.Priori) = 0 then
+  begin
+    if ValorA = ValorB then
+      Exit(0.0)
+    else
+      Exit(1.0);
+  end;
+
+  idxA := BuscarValorNominal(Info, ValorA);
+  idxB := BuscarValorNominal(Info, ValorB);
+
+  Result := 0.0;
+  for c := 0 to High(Info.Priori) do
+  begin
+    if (idxA >= 0) and (idxA <= High(Info.ProbCond)) then
+      ProbA := Info.ProbCond[idxA][c]
+    else
+      ProbA := Info.Priori[c];
+
+    if (idxB >= 0) and (idxB <= High(Info.ProbCond)) then
+      ProbB := Info.ProbCond[idxB][c]
+    else
+      ProbB := Info.Priori[c];
+
+    Result := Result + Abs(ProbA - ProbB);
+  end;
+end;
+
+function DistanciaEntre(const A: TConjuntoDatos; FilaA: Integer;
   const B: TConjuntoDatos; FilaB: Integer;
   const AtributosUsados: array of Integer): Double;
 var
@@ -325,7 +482,7 @@ begin
   Result := 0.0;
 
   for k := 0 to High(AtributosUsados) do
-    Result := Result + SimilitudAtributo(
+    Result := Result + DistanciaAtributo(
       A.Info[AtributosUsados[k]],
       A.Datos[FilaA][AtributosUsados[k]],
       B.Datos[FilaB][AtributosUsados[k]]);
